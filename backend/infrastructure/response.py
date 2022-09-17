@@ -1,5 +1,3 @@
-import ast
-
 from rest_framework.response import Response
 from rest_framework.serializers import Serializer
 from rest_framework.status import (
