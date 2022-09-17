@@ -22,10 +22,6 @@ jobs:
       - name: Install requirements
         run: |
             pip install -r requirements.txt
-      - name: postgres
-        run:
-            sudo systemctl start postgresql
-            sudo systemctl enable postgresql
       - name: Run tests
         run: |
             cd backend
