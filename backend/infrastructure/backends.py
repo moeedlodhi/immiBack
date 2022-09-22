@@ -1,5 +1,6 @@
 from django.contrib.auth.backends import ModelBackend
 from authentication.models import User
+from django.contrib.auth.hashers import check_password
 
 
 class UserBackend(ModelBackend):
@@ -28,4 +29,12 @@ class EmployerBackend(UserBackend):
         # IMPORTANT: assumption here is that the username here will be same as the regular email for a user at this
         # point, and it will get converted to the specific format with company ID (like user+company_id@domain.com)
         # later on to verify existence of such user
-        return User.objects.get(id=1)
+        try:
+            user = User.objects.get(email=email)
+        except User.DoesNotExist:
+            return None
+
+        if not check_password(password, user.password):
+            return None
+
+        return user

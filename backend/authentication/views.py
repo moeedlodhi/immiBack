@@ -4,6 +4,7 @@ from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework import status
 from authentication.serializers import CustomJSONWebTokenSerializer
 from authentication.models import User
+from authentication.serializers import LoginSerializer
 from infrastructure.auth import JWTAuthentication
 from infrastructure.response import CustomResponse
 
@@ -31,3 +32,25 @@ class verifyToken(ListAPIView):
 
     def get(self, request):
         return CustomResponse(status=status.HTTP_200_OK, message='OK')
+
+
+class loginuser(CreateAPIView):
+    permission_classes = (AllowAny,)
+    authentication_classes = (JWTAuthentication,)
+    serializer_class = LoginSerializer
+
+    def post(self, request, *args, **kwargs):
+        serializer = LoginSerializer(data=request.data)
+        try:
+            if serializer.is_valid():
+                user = serializer.object.get('user')
+                token = serializer.object.get('token')
+                data = {
+                    "user": user.email,
+                    "token": token
+                }
+                return CustomResponse(status=status.HTTP_200_OK, message='OK', data=data)
+            else:
+                return CustomResponse(status=status.HTTP_401_UNAUTHORIZED, message=str(serializer.errors))
+        except Exception as e:
+            return CustomResponse(status=status.HTTP_500_INTERNAL_SERVER_ERROR, message=str(e))

@@ -18,5 +18,6 @@ from authentication import views
 
 urlpatterns = [
     path('authtoken/', views.AuthJsonWebTokeView.as_view(), name='authtoken'),
+    path('login/', views.loginuser.as_view(), name='login'),
     path('verify/', views.verifyToken.as_view())
 ]

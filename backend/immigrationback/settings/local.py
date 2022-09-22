@@ -15,7 +15,6 @@ import os
 import environ
 env = environ.Env()
 environ.Env.read_env()
-env('SECRET_KEY')
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -119,6 +118,9 @@ JWT_AUTH = {
     'JWT_EXPIRATION_DELTA': datetime.timedelta(minutes=60)
 }
 
+AUTHENTICATION_BACKENDS = (
+    'infrastructure.backends.EmployerBackend',
+)
 
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators
