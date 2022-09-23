@@ -63,6 +63,32 @@ class RegisterationTest(APITestCase):
         self.assertEqual(response2.status_code, status.HTTP_400_BAD_REQUEST)
 
 
+class VerifyToken(APITestCase):
+
+    def setUp(self) -> None:
+        self.client = APIClient()
+        self.url = reverse('verify')
+        self.url_login = reverse('login')
+        user = User.objects.create(email="moeedlodhi@gmail.com")
+        user.set_password('ufc112233')
+        user.save()
+        payload = {
+            "email": "abc@gmail.com",
+            "password": "random1234"
+        }
+        user = User.objects.create(email=payload['email'])
+        user.set_password(payload['password'])
+        user.save()
+        response = self.client.post(self.url_login, data=payload, format="json")
+        token = {'HTTP_AUTHORIZATION': 'Bearer ' + response.data['data']['token']}
+        self.client.credentials(**token)
+        return super().setUp()
+
+    def test_verify_returns_200(self):
+        response2 = self.client.get(self.url)
+        self.assertEqual(response2.status_code, status.HTTP_200_OK)
+
+
 class LoginTest(APITestCase):
 
     def setUp(self) -> None:

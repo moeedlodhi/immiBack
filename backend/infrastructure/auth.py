@@ -25,7 +25,6 @@ class JWTAuthentication(BaseJSONWebTokenAuthentication):
 
     def get_jwt_value(self, request):
         auth = authentication.get_authorization_header(request).split()
-
         if not auth or auth[0].lower().decode() != api_settings.JWT_AUTH_HEADER_PREFIX.lower():
             return None
 
@@ -64,7 +63,6 @@ class JWTAuthentication(BaseJSONWebTokenAuthentication):
             return None
 
         try:
-            # import pdb;pdb.set_trace()
             payload = jwt_decode_handler(jwt_value)
 
         except jwt.ExpiredSignature:
@@ -77,7 +75,6 @@ class JWTAuthentication(BaseJSONWebTokenAuthentication):
 
         except jwt.InvalidTokenError:
             raise exceptions.AuthenticationFailed()
-        # import pdb;pdb.set_trace()
         user = self.authenticate_credentials(payload)
 
         return (user, jwt_value)
@@ -92,7 +89,7 @@ class JWTAuthentication(BaseJSONWebTokenAuthentication):
             msg = _('Invalid payload.')
             raise exceptions.AuthenticationFailed(msg)
         try:
-            user = User.objects.get(id=34)
+            user = User.objects.get(id=payload['user_id'])
         except User.DoesNotExist:
             msg = _('Invalid signature.')
             raise exceptions.AuthenticationFailed(msg)

@@ -36,7 +36,6 @@ class verifyToken(ListAPIView):
 
 class loginuser(CreateAPIView):
     permission_classes = (AllowAny,)
-    authentication_classes = (JWTAuthentication,)
     serializer_class = LoginSerializer
 
     def post(self, request, *args, **kwargs):
