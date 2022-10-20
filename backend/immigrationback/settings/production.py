@@ -14,11 +14,14 @@ import os
 import environ
 env = environ.Env()
 
-DB_NAME = env('DB_NAME')
-DB_PASS = env('DB_PASS')
-DB_HOST = env('DB_HOST')
-DB_PORT = env('DB_PORT')
-DB_USER = env('DB_USER')
+try:
+    DB_NAME = env('DB_NAME')
+    DB_PASS = env('DB_PASS')
+    DB_HOST = env('DB_HOST')
+    DB_PORT = env('DB_PORT')
+    DB_USER = env('DB_USER')
+except:
+    pass
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
