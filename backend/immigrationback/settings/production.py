@@ -87,7 +87,7 @@ WSGI_APPLICATION = 'immigrationback.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
-if os.environ.get('DB_NAME'):
+if os.environ.get('DB_NAME') is not None:
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql',
