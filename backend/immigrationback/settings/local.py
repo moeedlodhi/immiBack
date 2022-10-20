@@ -105,13 +105,12 @@ if os.environ.get('DB_NAME') is not None:
         }
     }
 else:
-    pass
-    # DATABASES = {
-    #     'default': {
-    #         'ENGINE': 'django.db.backends.sqlite3',
-    #         'NAME': 'mydatabase',  # This is where you put the name of the db file.
-    #     }
-    # }
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': 'mydatabase',  # This is where you put the name of the db file.
+        }
+    }
 
 REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
