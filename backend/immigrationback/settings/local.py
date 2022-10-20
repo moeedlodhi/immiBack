@@ -16,6 +16,14 @@ import environ
 env = environ.Env()
 environ.Env.read_env()
 
+
+DB_NAME = os.environ.get('DB_NAME')
+DB_PASS = os.environ.get('DB_PASS')
+DB_HOST = os.environ.get('DB_HOST')
+DB_PORT = os.environ.get('DB_PORT')
+DB_USER = os.environ.get('DB_USER')
+
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -84,16 +92,25 @@ WSGI_APPLICATION = 'immigrationback.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'immigration',
-        'USER': 'moeed.lodhi',
-        'PASSWORD': "Ufc11223344'",
-        'HOST': 'localhost',
-        'PORT': '',
+
+if os.environ.get('DB_NAME') is not None:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': DB_NAME,
+            'USER': DB_USER,
+            'PASSWORD': DB_PASS,
+            'HOST': DB_HOST,
+            'PORT': DB_PORT,
+        }
     }
-}
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': 'mydatabase',  # This is where you put the name of the db file.
+        }
+    }
 
 REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
