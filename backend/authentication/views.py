@@ -50,6 +50,6 @@ class loginuser(CreateAPIView):
                 }
                 return CustomResponse(status=status.HTTP_200_OK, message='OK', data=data)
             else:
-                return CustomResponse(status=status.HTTP_401_UNAUTHORIZED, message=str(serializer.errors))
+                return CustomResponse(status=status.HTTP_400_BAD_REQUEST, message=str(serializer.errors))
         except Exception as e:
             return CustomResponse(status=status.HTTP_500_INTERNAL_SERVER_ERROR, message=str(e))

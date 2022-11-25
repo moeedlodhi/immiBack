@@ -107,7 +107,7 @@ class LoginTest(APITestCase):
         response2 = self.client.post(self.url, data=payload, format="json")
         self.assertEqual(response2.status_code, status.HTTP_200_OK)
 
-    def test_login_returns_401(self):
+    def test_login_returns_400(self):
         payload = {
             "email": "abc@gmail.com",
             "password": "random1234"
@@ -116,4 +116,4 @@ class LoginTest(APITestCase):
         user.set_password('random')
         user.save()
         response2 = self.client.post(self.url, data=payload, format="json")
-        self.assertEqual(response2.status_code, status.HTTP_401_UNAUTHORIZED)
+        self.assertEqual(response2.status_code, status.HTTP_400_BAD_REQUEST)
