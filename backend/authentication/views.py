@@ -1,10 +1,10 @@
 # Create your views here.
-from rest_framework.generics import CreateAPIView, ListAPIView
-from rest_framework.permissions import AllowAny, IsAuthenticated
+from rest_framework.generics import CreateAPIView, GenericAPIView
+from rest_framework.permissions import AllowAny
 from rest_framework import status
 from authentication.serializers import CustomJSONWebTokenSerializer
-from authentication.models import User
 from authentication.serializers import LoginSerializer
+from authentication.serializers import JSONRefreshWebTokenSerializer
 from infrastructure.auth import JWTAuthentication
 from infrastructure.response import CustomResponse
 
@@ -25,13 +25,17 @@ class AuthJsonWebTokeView(CreateAPIView):
             return CustomResponse(status=status.HTTP_500_INTERNAL_SERVER_ERROR, message=str(e))
 
 
-class verifyToken(ListAPIView):
-    permission_classes = (IsAuthenticated,)
+class verifyToken(GenericAPIView):
+    permission_classes = (AllowAny,)
     authentication_classes = (JWTAuthentication,)
-    queryset = User.objects.all()
+    serializer_class = JSONRefreshWebTokenSerializer
 
-    def get(self, request):
-        return CustomResponse(status=status.HTTP_200_OK, message='OK')
+    def post(self, request):
+        serializer = self.get_serializer(data=request.data)
+        if serializer.is_valid():
+            return CustomResponse(status=status.HTTP_200_OK, message='OK', data=serializer.data)
+        else:
+            return CustomResponse(status=status.HTTP_400_BAD_REQUEST, message='ERROR')
 
 
 class loginuser(CreateAPIView):

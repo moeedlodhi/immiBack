@@ -15,9 +15,11 @@ Including another URLconf
 """
 from django.urls import path
 from authentication import views
+from rest_framework_jwt.views import refresh_jwt_token
 
 urlpatterns = [
     path('authtoken/', views.AuthJsonWebTokeView.as_view(), name='authtoken'),
     path('login/', views.loginuser.as_view(), name='login'),
-    path('verify/', views.verifyToken.as_view(), name='verify')
+    path('verify/', views.verifyToken.as_view(), name='verify'),
+    path('api-token-refresh/', refresh_jwt_token)
 ]

@@ -134,7 +134,9 @@ JWT_AUTH = {
     'JWT_ALLOW_REFRESH': True,
     'JWT_AUTH_HEADER_PREFIX': 'Bearer',
     'JWT_SECRET_KEY': env('SECRET_KEY'),
-    'JWT_EXPIRATION_DELTA': datetime.timedelta(minutes=60)
+    'JWT_EXPIRATION_DELTA': datetime.timedelta(minutes=5),
+    'JWT_ALLOW_REFRESH': True,
+    'JWT_REFRESH_EXPIRATION_DELTA': datetime.timedelta(days=7),
 }
 
 AUTHENTICATION_BACKENDS = (

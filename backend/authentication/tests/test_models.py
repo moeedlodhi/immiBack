@@ -80,12 +80,13 @@ class VerifyToken(APITestCase):
         user.set_password(payload['password'])
         user.save()
         response = self.client.post(self.url_login, data=payload, format="json")
+        self.jwt_token = response.data['data']['token']
         token = {'HTTP_AUTHORIZATION': 'Bearer ' + response.data['data']['token']}
         self.client.credentials(**token)
         return super().setUp()
 
     def test_verify_returns_200(self):
-        response2 = self.client.get(self.url)
+        response2 = self.client.post(self.url, data={"token": self.jwt_token})
         self.assertEqual(response2.status_code, status.HTTP_200_OK)
 
 
