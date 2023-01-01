@@ -104,9 +104,8 @@ class JSONRefreshWebTokenSerializer(VerificationBaseSerializer):
         now_timestamp = timegm(datetime.utcnow().utctimetuple())
         if exp-now_timestamp < 0:
             raise serializers.ValidationError('Token is expired')
-        if exp-now_timestamp < 120 and exp-now_timestamp > 0:
+        if exp-now_timestamp < 300 and exp-now_timestamp > 0:
             if orig_iat:
-
                 # Verify expiration
                 refresh_limit = api_settings.JWT_REFRESH_EXPIRATION_DELTA
 

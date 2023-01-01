@@ -55,7 +55,7 @@ INSTALLED_APPS = [
     'corsheaders'
 ]
 
-LOCAL_APPS = ['authentication']
+LOCAL_APPS = ['authentication', 'questionnaire']
 
 INSTALLED_APPS = INSTALLED_APPS + LOCAL_APPS
 
@@ -123,8 +123,6 @@ REST_FRAMEWORK = {
         'rest_framework.renderers.JSONRenderer',
     ),
     'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework.authentication.SessionAuthentication',
-        'rest_framework.authentication.BasicAuthentication',
         'infrastructure.auth.JWTAuthentication',
     ),
     # 'EXCEPTION_HANDLER': 'infrastructure.middleware.custom_exception_handler'
@@ -134,7 +132,7 @@ JWT_AUTH = {
     'JWT_ALLOW_REFRESH': True,
     'JWT_AUTH_HEADER_PREFIX': 'Bearer',
     'JWT_SECRET_KEY': env('SECRET_KEY'),
-    'JWT_EXPIRATION_DELTA': datetime.timedelta(minutes=5),
+    'JWT_EXPIRATION_DELTA': datetime.timedelta(minutes=15),
     'JWT_ALLOW_REFRESH': True,
     'JWT_REFRESH_EXPIRATION_DELTA': datetime.timedelta(days=7),
 }

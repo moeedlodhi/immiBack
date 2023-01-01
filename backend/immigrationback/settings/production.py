@@ -49,7 +49,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 ]
 
-LOCAL_APPS = ['authentication']
+LOCAL_APPS = ['authentication', 'questionnaire']
 
 INSTALLED_APPS = INSTALLED_APPS + LOCAL_APPS
 

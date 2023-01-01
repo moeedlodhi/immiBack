@@ -2,11 +2,11 @@
 from rest_framework.generics import CreateAPIView, GenericAPIView
 from rest_framework.permissions import AllowAny
 from rest_framework import status
+from infrastructure.response import CustomResponse
 from authentication.serializers import CustomJSONWebTokenSerializer
 from authentication.serializers import LoginSerializer
 from authentication.serializers import JSONRefreshWebTokenSerializer
 from infrastructure.auth import JWTAuthentication
-from infrastructure.response import CustomResponse
 
 
 class AuthJsonWebTokeView(CreateAPIView):
@@ -35,7 +35,7 @@ class verifyToken(GenericAPIView):
         if serializer.is_valid():
             return CustomResponse(status=status.HTTP_200_OK, message='OK', data=serializer.data)
         else:
-            return CustomResponse(status=status.HTTP_400_BAD_REQUEST, message='ERROR')
+            return CustomResponse(status=status.HTTP_400_BAD_REQUEST, message=str(serializer.errors))
 
 
 class loginuser(CreateAPIView):
