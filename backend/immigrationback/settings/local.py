@@ -181,3 +181,4 @@ STATIC_URL = '/static/'
 CORS_ORIGIN_ALLOW_ALL = True
 
 AUTH_USER_MODEL = 'authentication.User'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
