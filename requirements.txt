@@ -2,7 +2,7 @@
 
 
 bleach
-django-cors-headers==2.4.0
+django-cors-headers==3.7.0
 django-oauth-toolkit==1.2.0
 django-redis==5.2.0
 djangorestframework-simplejwt==5.2.0
@@ -10,8 +10,9 @@ psycopg2-binary
 djangorestframework-jwt==1.11.0
 djangorestframework==3.11.2
 requirements-parser==0.1.0
-Django~=2.2.0
+Django==3.2.0
 sentry-sdk
 django-csp==3.7
 django-environ
 flake8
+gunicorn
