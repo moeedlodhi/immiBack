@@ -17,9 +17,11 @@ from django.contrib import admin
 import authentication.urls as authurls
 import questionnaire.urls as questionnaireurls
 from django.urls import path, include
+from django.conf.urls.static import static
+from django.conf import settings
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('user/', include(authurls)),
     path('questionnaire/', include(questionnaireurls))
-]
+] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
