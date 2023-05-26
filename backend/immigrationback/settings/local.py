@@ -94,7 +94,6 @@ WSGI_APPLICATION = 'immigrationback.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
-
 if os.environ.get('DB_NAME') is not None:
     DATABASES = {
         'default': {
@@ -138,7 +137,7 @@ JWT_AUTH = {
 }
 
 AUTHENTICATION_BACKENDS = (
-    'infrastructure.backends.EmployerBackend',
+    'django.contrib.auth.backends.ModelBackend',
 )
 
 # Password validation
@@ -182,3 +181,4 @@ CORS_ORIGIN_ALLOW_ALL = True
 
 AUTH_USER_MODEL = 'authentication.User'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+print(STATIC_ROOT, "STATIC_ROOT")
