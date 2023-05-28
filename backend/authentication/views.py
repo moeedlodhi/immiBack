@@ -7,6 +7,7 @@ from authentication.serializers import CustomJSONWebTokenSerializer
 from authentication.serializers import LoginSerializer
 from authentication.serializers import JSONRefreshWebTokenSerializer
 from infrastructure.auth import JWTAuthentication
+from .tasks import long_running_task
 
 
 class AuthJsonWebTokeView(CreateAPIView):
@@ -14,6 +15,7 @@ class AuthJsonWebTokeView(CreateAPIView):
     serializer_class = CustomJSONWebTokenSerializer
 
     def post(self, request, *args, **kwargs):
+        long_running_task.delay()
         serializer = CustomJSONWebTokenSerializer(data=request.data)
         try:
             if serializer.is_valid():
