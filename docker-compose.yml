@@ -19,8 +19,7 @@ services:
       - DB_PASS=$POSTGRES_PASSWORD
       - DB_PORT=5432
     depends_on:
-      - db:
-          condition: service_healthy
+      - "db"
   db:
     env_file:
       - .env
@@ -33,6 +32,22 @@ services:
     - POSTGRES_PASSWORD=$POSTGRES_PASSWORD
     ports:
       - "5432:5432"
+  
+  redis:
+    image: redis:7.0-alpine
+    restart: unless-stopped
+    ports:
+      - 6379:6379
+
+  celery-worker:
+    build: .
+    command: >
+      sh -c "celery -A immigrationback worker -l DEBUG"
+    depends_on:
+      - db
+      - redis
+    restart: unless-stopped
+
 volumes:
   dev-db-data:
 
