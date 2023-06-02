@@ -30,6 +30,8 @@ class User(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(max_length=255, unique=True)
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=True)
+    profile_pic = models.ImageField(null=True, blank=True)
+
 
     USERNAME_FIELD = 'email'
 

@@ -17,3 +17,6 @@ django-environ
 flake8
 celery
 gunicorn
+pillow
+django-storages
+boto3
