@@ -1,4 +1,5 @@
 from django.db import models
+from .fields import UpperStringField
 from django.contrib.auth.models import (
 
     AbstractBaseUser,
@@ -6,6 +7,7 @@ from django.contrib.auth.models import (
     PermissionsMixin
 
 )
+
 # Create your models here.
 
 
@@ -31,6 +33,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=True)
     profile_pic = models.ImageField(null=True, blank=True)
+    random_name = UpperStringField(max_length=264, null=True, blank=True)
 
 
     USERNAME_FIELD = 'email'
